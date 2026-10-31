@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Housecall: a check-up for your smart home</title>
+  <meta name="description" content="Housecall keeps a complete history of your Apple Home and checks it every week for problems, in plain English. For iPhone, iPad and Mac.">
+  <meta property="og:title" content="Housecall: a check-up for your smart home">
+  <meta property="og:description" content="A complete history of your Apple Home, and a weekly check-up that tells you what needs attention before it breaks.">
+  <meta property="og:image" content="images/icon.png">
+  <!-- Replace YOUR_APP_ID with the App Store ID once the app record exists (APP_STORE_LISTING.md). -->
+  <meta name="apple-itunes-app" content="app-id=YOUR_APP_ID">
+  <link rel="icon" href="images/favicon.png">
+  <style>
+    :root {
+      --brand: #0F766E;
+      --brand-dark: #0A4F4A;
+      --brand-light: #14B8A6;
+      --text: #111827;
+      --muted: #4B5563;
+      --surface: #FFFFFF;
+      --background: #F3F4F6;
+      --card: #FFFFFF;
+      --border: #E5E7EB;
+      --link: #0F766E;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --text: #F9FAFB;
+        --muted: #C7CCD4;
+        --surface: #0B0F14;
+        --background: #11161D;
+        --card: #18202A;
+        --border: #263241;
+        --link: #2DD4BF;
+      }
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font: 17px/1.55 -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+      color: var(--text);
+      background: var(--surface);
+    }
+    /* Links: the darker teal on light backgrounds (5.5:1), the lighter one in dark mode. */
+    a { color: var(--link); }
+    .wrap { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+    header.hero {
+      background: linear-gradient(180deg, var(--brand), var(--brand-dark));
+      color: #fff;
+      padding: 72px 0 0;
+      overflow: hidden;
+    }
+    .hero .wrap { display: grid; grid-template-columns: 1.1fr 1fr; gap: 40px; align-items: end; }
+    .hero h1 { font-size: clamp(40px, 6vw, 64px); line-height: 1.05; margin: 16px 0; letter-spacing: -0.02em; }
+    .hero p.lede { font-size: 21px; color: #E6FFFB; max-width: 34em; }
+    .brand { display: flex; align-items: center; gap: 14px; font-weight: 700; font-size: 22px; }
+    .brand img { width: 64px; height: 64px; border-radius: 15px; box-shadow: 0 8px 24px rgba(0,0,0,.25); }
+    .cta { display: flex; gap: 14px; flex-wrap: wrap; margin: 28px 0 56px; }
+    .button {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: #000; color: #fff; text-decoration: none;
+      padding: 14px 22px; border-radius: 14px; font-weight: 600;
+    }
+    .button.secondary { background: rgba(255,255,255,.14); }
+    .platforms { color: #CCFBF1; font-size: 15px; }
+    .hero-shot { display: flex; gap: 18px; justify-content: center; align-items: flex-end; }
+    .hero-shot img { width: 46%; max-width: 270px; border-radius: 34px 34px 0 0; box-shadow: 0 -10px 40px rgba(0,0,0,.3); }
+    .hero-shot img + img { margin-bottom: 36px; border-radius: 34px; }
+    section { padding: 80px 0; }
+    section.alt { background: var(--background); }
+    h2 { font-size: clamp(28px, 4vw, 40px); line-height: 1.15; margin: 0 0 12px; letter-spacing: -0.01em; }
+    .section-lede { color: var(--muted); font-size: 19px; max-width: 40em; margin: 0 0 40px; }
+    .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+    .card { background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 24px; }
+    .card h3 { margin: 10px 0 6px; font-size: 19px; }
+    .card p { margin: 0; color: var(--muted); }
+    .icon { font-size: 26px; }
+    .quote {
+      background: var(--card); border: 1px solid var(--border); border-left: 5px solid var(--brand-light);
+      border-radius: 16px; padding: 18px 22px; margin: 0 0 14px; color: var(--text);
+    }
+    .split { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
+    .shot { width: 100%; border-radius: 14px; box-shadow: 0 20px 50px rgba(0,0,0,.18); }
+    .phone { max-width: 320px; border-radius: 40px; display: block; margin: 0 auto; }
+    ul.ticks { list-style: none; padding: 0; margin: 0; }
+    ul.ticks li { padding-left: 30px; position: relative; margin: 10px 0; }
+    ul.ticks li::before { content: "✓"; position: absolute; left: 0; color: var(--link); font-weight: 700; }
+    .pricing { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+    .price { font-size: 34px; font-weight: 700; margin: 8px 0 2px; }
+    .price small { font-size: 16px; color: var(--muted); font-weight: 500; }
+    .card.featured { border: 2px solid var(--brand-light); }
+    .badge { display: inline-block; background: var(--brand); color: #fff; font-size: 13px; font-weight: 600; padding: 3px 10px; border-radius: 99px; }
+    details { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 16px 20px; margin: 0 0 12px; }
+    summary { font-weight: 600; cursor: pointer; }
+    details p { color: var(--muted); margin: 10px 0 0; }
+    footer { padding: 40px 0 60px; color: var(--muted); font-size: 15px; border-top: 1px solid var(--border); }
+    footer .wrap { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+    @media (max-width: 860px) {
+      .hero .wrap, .split, .grid, .pricing { grid-template-columns: 1fr; }
+      .hero-shot img { width: 44%; }
+      section { padding: 56px 0; }
+    }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="wrap">
+      <div>
+        <div class="brand"><img src="images/icon.png" alt="" width="64" height="64">Housecall</div>
+        <h1>A check-up for your smart home.</h1>
+        <p class="lede">Housecall keeps a complete history of your Apple Home and checks it every week, telling you in plain English what needs attention before it breaks.</p>
+        <div class="cta">
+          <!-- Replace with Apple's official "Download on the App Store" badge and your App Store link. -->
+          <a class="button" href="#" aria-label="Download Housecall on the App Store">Download on the App Store</a>
+          <a class="button secondary" href="#features">See what it does</a>
+        </div>
+        <p class="platforms">iPhone · iPad · Mac. One purchase covers all three. Free to start.</p>
+      </div>
+      <div class="hero-shot">
+        <img src="images/iphone-1-checkup.jpg" alt="The weekly check-up on iPhone: 3 things need attention, starting with a thermostat that drops off most nights around 2am." width="270">
+        <img src="images/iphone-5-checkup-dark.jpg" alt="The same check-up in dark mode." width="270">
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section id="features">
+      <div class="wrap">
+        <h2>Know what happened, and why.</h2>
+        <p class="section-lede">Apple Home shows you what's happening now. Housecall remembers everything that has happened, and notices the patterns you'd miss.</p>
+        <div class="grid">
+          <div class="card"><div class="icon" aria-hidden="true">🩺</div><h3>A weekly check-up</h3><p>A ranked, plain-English report: what dropped off, which batteries are running down, what keeps restarting, and what to try.</p></div>
+          <div class="card"><div class="icon" aria-hidden="true">🕰️</div><h3>Every change, every brand</h3><p>Lights, sensors, locks, blinds and thermostats, plus accessories going offline and back. Searchable, and fast with millions of events.</p></div>
+          <div class="card"><div class="icon" aria-hidden="true">🕸️</div><h3>Thread &amp; Matter diagnostics</h3><p>See which router each device talks through, how strong the link is, and which devices ended up on a separate Thread network.</p></div>
+          <div class="card"><div class="icon" aria-hidden="true">🔔</div><h3>Alerts that respect your sleep</h3><p>Offline, low battery, stuck sensors, weak signals. Set thresholds per accessory, and quiet hours save alerts for one morning summary.</p></div>
+          <div class="card"><div class="icon" aria-hidden="true">🖥️</div><h3>Your Mac keeps watch</h3><p>Your Mac logs around the clock, even with its window closed, and shows a menu-bar count when something needs attention.</p></div>
+          <div class="card"><div class="icon" aria-hidden="true">🔒</div><h3>Private by design</h3><p>Your data stays on your devices and in your own iCloud. No servers, no account, no analytics, no tracking.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="alt">
+      <div class="wrap split">
+        <div>
+          <h2>Plain English, not log files.</h2>
+          <p class="section-lede">Every finding says what Housecall saw and what to try.</p>
+          <p class="quote">“Bedroom Thermostat drops off most nights, usually around 2:00. Check whether your router restarts, or a Wi-Fi extender powers down, around then.”</p>
+          <p class="quote">“Garage Door Sensor battery fell from 24% to 14% this week. At that rate it will run out in about 6 days.”</p>
+          <p class="quote">“Your Mac wasn't logging for 14 hours this week, mostly while asleep.”</p>
+        </div>
+        <img class="phone" src="images/iphone-4-thermostat.jpg" alt="An accessory's history: a reachability bar showing nightly drop-offs, and a week of temperature readings.">
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <h2>Built for the Mac, too.</h2>
+        <p class="section-lede">Three columns, keyboard shortcuts, multiple windows and a menu-bar item. Ideal for a Mac that's always on.</p>
+        <img class="shot" src="images/mac-1-checkup.png" alt="Housecall on the Mac: the sidebar, the weekly check-up, and the thermostat's history side by side." width="1600">
+      </div>
+    </section>
+
+    <section class="alt">
+      <div class="wrap split">
+        <img class="phone" src="images/iphone-3-network.jpg" alt="The Network screen: a map of Thread routers and the devices under each, with signal strength.">
+        <div>
+          <h2>See inside your Thread network.</h2>
+          <p class="section-lede">Matter accessories share diagnostics that the Home app never shows.</p>
+          <ul class="ticks">
+            <li>Which router each device talks through, and how strong its link is</li>
+            <li>Devices stranded on a second Thread network</li>
+            <li>Restarts counted every week, because a lock that restarts daily is telling you something</li>
+            <li>Honest about what it can't see: HomePods don't share diagnostics, so Housecall shows them by number</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="pricing">
+      <div class="wrap">
+        <h2>Free to start. Pro when you want the check-up.</h2>
+        <p class="section-lede">Free logs everything and never deletes your history. Pro unlocks the weekly check-up, full history, charts, diagnostics, widgets, exports and multiple homes.</p>
+        <div class="pricing">
+          <div class="card"><h3>Monthly</h3><div class="price">£2.99<small> / month</small></div><p>Cancel any time.</p></div>
+          <div class="card featured"><span class="badge">Best value · 7 days free</span><h3>Annual</h3><div class="price">£19.99<small> / year</small></div><p>Saves 44% on monthly. Family Sharing included.</p></div>
+          <div class="card"><h3>Lifetime</h3><div class="price">£49.99<small> once</small></div><p>Every Pro feature, for good. Family Sharing included.</p></div>
+        </div>
+        <p class="section-lede" style="margin-top:20px;font-size:15px">UK prices. Prices in other countries are set by the App Store. One purchase covers iPhone, iPad and Mac.</p>
+      </div>
+    </section>
+
+    <section class="alt" id="faq">
+      <div class="wrap">
+        <h2>Questions</h2>
+        <details><summary>Do I need a Mac?</summary><p>For round-the-clock logging, yes. Apple only lets apps receive Home updates while they're running, so your Mac acts as the always-on station. Your iPhone and iPad show its history and get its alerts, and they also log while they're open.</p></details>
+        <details><summary>Do I need Homebridge or Home Assistant?</summary><p>No. Housecall works directly with the accessories in your Apple Home app, from any brand. Thread diagnostics are for Matter accessories.</p></details>
+        <details><summary>Can it tell who turned something on?</summary><p>No, and it won't guess. HomeKit doesn't tell apps who or what made a change, or when an automation ran. Housecall says how it saw each change, never who made it.</p></details>
+        <details><summary>Where is my data?</summary><p>On your devices and in your own private iCloud. Housecall has no servers and can't see your data. See the <a href="privacy.html">privacy policy</a>.</p></details>
+        <details><summary>What happens if I stop paying?</summary><p>Housecall keeps logging and keeps all your history. You'll see the last 7 days until you resubscribe, and then everything comes back.</p></details>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <span>© 2026 Mark Tiddy. Apple, HomeKit, iPhone, iPad and Mac are trademarks of Apple Inc. Housecall isn't made by Apple.</span>
+      <span><a href="privacy.html">Privacy</a> · <a href="mailto:YOUR_CONTACT_EMAIL">Contact</a></span>
+    </div>
+  </footer>
+</body>
+</html>
