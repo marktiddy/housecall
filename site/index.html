@@ -43,8 +43,19 @@
       color: var(--text);
       background: var(--surface);
     }
+    :root { color-scheme: light dark; }
     /* Links: the darker teal on light backgrounds (5.5:1), the lighter one in dark mode. */
     a { color: var(--link); }
+    a:hover { text-decoration-thickness: 2px; }
+    /* Focus ring: 3px, offset so it never sits on the control itself. At least 3:1 against every background. */
+    :focus-visible { outline: 3px solid var(--link); outline-offset: 3px; }
+    .hero :focus-visible { outline-color: #fff; }
+    .skip {
+      position: absolute; left: 16px; top: -100px; z-index: 10;
+      background: #000; color: #fff; padding: 12px 18px; border-radius: 10px; font-weight: 600;
+    }
+    .skip:focus { top: 16px; }
+    .skip:focus-visible { outline-color: #fff; }
     .wrap { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
     header.hero {
       background: linear-gradient(180deg, var(--brand), var(--brand-dark));
@@ -62,8 +73,13 @@
       display: inline-flex; align-items: center; gap: 10px;
       background: #000; color: #fff; text-decoration: none;
       padding: 14px 22px; border-radius: 14px; font-weight: 600;
+      border: 2px solid transparent;
+      transition: background-color .15s, color .15s, border-color .15s, transform .15s;
     }
-    .button.secondary { background: rgba(255,255,255,.14); }
+    .button:hover { background: #fff; color: #000; transform: translateY(-1px); }
+    /* Outlined rather than translucent: white text on a 14% white tint was only 4.2:1. */
+    .button.secondary { background: transparent; border-color: #fff; }
+    .button.secondary:hover { background: #fff; color: var(--brand-dark); }
     .platforms { color: #CCFBF1; font-size: 15px; }
     .hero-shot { display: flex; gap: 18px; justify-content: center; align-items: flex-end; }
     .hero-shot img { width: 46%; max-width: 270px; border-radius: 34px 34px 0 0; box-shadow: 0 -10px 40px rgba(0,0,0,.3); }
@@ -92,20 +108,30 @@
     .price small { font-size: 16px; color: var(--muted); font-weight: 500; }
     .card.featured { border: 2px solid var(--brand-light); }
     .badge { display: inline-block; background: var(--brand); color: #fff; font-size: 13px; font-weight: 600; padding: 3px 10px; border-radius: 99px; }
-    details { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 16px 20px; margin: 0 0 12px; }
-    summary { font-weight: 600; cursor: pointer; }
-    details p { color: var(--muted); margin: 10px 0 0; }
+    details { background: var(--card); border: 1px solid var(--border); border-radius: 16px; margin: 0 0 12px; }
+    /* Padding on the summary so the whole row is the click target. Keeps the native marker, which shows open/closed state. */
+    summary { font-weight: 600; cursor: pointer; padding: 16px 20px; border-radius: 15px; }
+    summary:hover { color: var(--link); }
+    summary:focus-visible { outline-offset: 2px; }
+    details[open] summary { border-radius: 15px 15px 0 0; }
+    details p { color: var(--muted); margin: 0; padding: 0 20px 16px; }
     footer { padding: 40px 0 60px; color: var(--muted); font-size: 15px; border-top: 1px solid var(--border); }
+    footer a { display: inline-block; padding: 4px 2px; }
     footer .wrap { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
     @media (max-width: 860px) {
       .hero .wrap, .split, .grid, .pricing { grid-template-columns: 1fr; }
       .hero-shot img { width: 44%; }
       section { padding: 56px 0; }
     }
-    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .button { transition: none; }
+      .button:hover { transform: none; }
+    }
   </style>
 </head>
 <body>
+  <a class="skip" href="#main">Skip to content</a>
   <header class="hero">
     <div class="wrap">
       <div>
@@ -114,7 +140,7 @@
         <p class="lede">Housecall keeps a complete history of your Apple Home and checks it every week, telling you in plain English what needs attention before it breaks.</p>
         <div class="cta">
           <!-- Replace with Apple's official "Download on the App Store" badge and your App Store link. -->
-          <a class="button" href="https://apps.apple.com/us/developer/mark-tiddy/id1387964564" aria-label="Download Housecall on the App Store">Download on the App Store</a>
+          <a class="button" href="https://apps.apple.com/us/developer/mark-tiddy/id1387964564">Download on the App Store</a>
           <a class="button secondary" href="#features">See what it does</a>
         </div>
         <p class="platforms">iPhone · iPad · Mac. One purchase covers all three. Free to start.</p>
@@ -126,7 +152,7 @@
     </div>
   </header>
 
-  <main>
+  <main id="main">
     <section id="features">
       <div class="wrap">
         <h2>Know what happened, and why.</h2>
