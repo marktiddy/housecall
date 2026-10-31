@@ -8,8 +8,8 @@ A one-page site plus the privacy policy, with no build step and no external scri
 - `YOUR_CONTACT_EMAIL`, and `[DATE]` in `privacy.html`
 
 **To publish on GitHub Pages (free):**
-1. Put this folder in a public repo, either as the root or in `docs/`.
-2. Go to Settings › Pages, set Source to "Deploy from a branch", choose the branch and folder, then Save.
+1. `.github/workflows/pages.yml` deploys this folder on every push to `main` that touches `site/`.
+2. One-time setup: in the repo's Settings › Pages, set Source to "GitHub Actions".
 3. Your privacy URL becomes `https://<you>.github.io/<repo>/privacy.html`. Put it in `Monetisation.Links.privacy` and in App Store Connect.
 
 The images come from `design/screenshots/raw/`. Recapture with the scripts there if the app changes.
